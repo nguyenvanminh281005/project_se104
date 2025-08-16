@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/store/auth';
 import { authAPI } from '@/lib/api';
 import { Container, Input, Button, LoadingSpinner } from '@/components/ui';
+import { AuthResponse, ErrorResponse } from '@/types';
 import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
@@ -74,12 +75,12 @@ export default function RegisterPage() {
       
       if (response.success && response.data) {
         // Auto-login after successful registration
-        const { user, token } = response.data as { user: any; token: string };
+        const { user, token } = response.data as AuthResponse;
         login(user, token);
         toast.success('Registration successful!');
         router.push('/');
       } else {
-        toast.error((response as any).error || 'Registration failed');
+        toast.error((response as ErrorResponse).error || 'Registration failed');
       }
     } catch (error) {
       toast.error('An error occurred during registration');

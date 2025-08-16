@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { usePlayerStore } from '@/lib/store/player';
 import { musicAPI } from '@/lib/api';
 import { useAuthStore } from '@/lib/store/auth';
@@ -37,9 +38,11 @@ export default function MusicPage() {
               className="flex items-center space-x-3 mb-3 cursor-pointer hover:bg-gray-800 rounded-lg p-2"
               onClick={() => playSong(song)}
             >
-              <img 
+              <Image 
                 src={song.coverImage || '/placeholder-music.jpg'} 
                 alt={song.title} 
+                width={48}
+                height={48}
                 className="w-12 h-12 rounded-lg object-cover bg-gray-700" 
               />
               <div>

@@ -14,8 +14,6 @@ export const CallModal: React.FC = () => {
     callStatus,
     endCall,
     acceptCall,
-    rejectCall,
-    setLocalStream,
     setRemoteStream,
   } = useCallStore();
 
@@ -40,7 +38,7 @@ export const CallModal: React.FC = () => {
       clearTimeout(autoCallTimeout);
       setAutoCallTimeout(null);
     }
-  }, [callStatus, endCall]);
+  }, [callStatus, endCall, autoCallTimeout]);
 
   // WebRTC stream handlers
   useEffect(() => {

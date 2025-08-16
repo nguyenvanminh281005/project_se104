@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { 
   Play, 
   Pause, 
@@ -13,12 +14,11 @@ import {
   Repeat1
 } from 'lucide-react';
 import { usePlayerStore } from '@/lib/store/player';
-import { Avatar } from '@/components/ui';
 
 export const MusicPlayer: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+  const [isDragging] = useState(false); // TODO: Implement drag functionality
 
   const {
     currentSong,
@@ -28,7 +28,6 @@ export const MusicPlayer: React.FC = () => {
     volume,
     shuffle,
     repeat,
-    playSong,
     pauseSong,
     resumeSong,
     nextSong,
@@ -183,9 +182,11 @@ export const MusicPlayer: React.FC = () => {
         <div className="flex items-center space-x-3 flex-1 min-w-0">
           <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
             {currentSong.coverImage ? (
-              <img 
+              <Image 
                 src={currentSong.coverImage} 
                 alt={currentSong.title}
+                width={48}
+                height={48}
                 className="w-full h-full object-cover"
               />
             ) : (

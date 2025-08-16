@@ -1,9 +1,11 @@
 // Mock Socket.IO client for demo mode when backend is not available
 
+type EventCallback = (...args: unknown[]) => void;
+
 class MockSocket {
   connected = false;
   id = 'mock-socket-id';
-  private eventHandlers: { [key: string]: Function[] } = {};
+  private eventHandlers: { [key: string]: EventCallback[] } = {};
 
   connect() {
     setTimeout(() => {
@@ -20,16 +22,16 @@ class MockSocket {
     console.log('Mock Socket disconnected');
   }
 
-  emit(event: string, data?: any) {
+  emit(event: string, data?: unknown) {
     console.log('Mock Socket emit:', event, data);
     // Simulate some responses for demo
     if (event === 'message:send') {
       setTimeout(() => {
         this.trigger('message:new', {
           id: Date.now().toString(),
-          content: data.content,
-          senderId: data.senderId || '1',
-          receiverId: data.receiverId,
+          content: (data as Record<string, unknown>)?.content,
+          senderId: (data as Record<string, unknown>)?.senderId || '1',
+          receiverId: (data as Record<string, unknown>)?.receiverId,
           timestamp: new Date(),
           isRead: false,
           messageType: 'text'
@@ -38,14 +40,14 @@ class MockSocket {
     }
   }
 
-  on(event: string, callback: Function) {
+  on(event: string, callback: EventCallback) {
     if (!this.eventHandlers[event]) {
       this.eventHandlers[event] = [];
     }
     this.eventHandlers[event].push(callback);
   }
 
-  off(event: string, callback?: Function) {
+  off(event: string, callback?: EventCallback) {
     if (callback && this.eventHandlers[event]) {
       this.eventHandlers[event] = this.eventHandlers[event].filter(cb => cb !== callback);
     } else {
@@ -53,7 +55,7 @@ class MockSocket {
     }
   }
 
-  private trigger(event: string, data?: any) {
+  private trigger(event: string, data?: unknown) {
     if (this.eventHandlers[event]) {
       this.eventHandlers[event].forEach(callback => {
         try {
@@ -67,7 +69,7 @@ class MockSocket {
 }
 
 // Mock io function
-export const mockIo = (url: string, options?: any) => {
+export const mockIo = (url: string, options?: Record<string, unknown>) => {
   console.log('Mock Socket.IO connecting to:', url, options);
   const socket = new MockSocket();
   

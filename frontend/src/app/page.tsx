@@ -44,7 +44,7 @@ export default function HomePage() {
               <div className="bg-gray-800/50 p-6 rounded-lg backdrop-blur-sm">
                 <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-white mb-2">Social Features</h3>
-                <p className="text-gray-400 text-sm">See who's online and share music with friends</p>
+                <p className="text-gray-400 text-sm">See who&apos;s online and share music with friends</p>
               </div>
             </div>
 
@@ -106,7 +106,7 @@ export default function HomePage() {
             <div className="bg-gradient-to-br from-purple-600 to-purple-800 p-8 rounded-xl hover:scale-105 transition-transform">
               <Users className="w-16 h-16 text-white mb-4" />
               <h3 className="text-2xl font-bold text-white mb-2">Friends</h3>
-              <p className="text-purple-100">Manage your friend list and see who's online</p>
+              <p className="text-purple-100">Manage your friend list and see who&apos;s online</p>
             </div>
           </Link>
         </div>

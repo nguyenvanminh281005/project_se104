@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -119,7 +120,13 @@ export const Avatar: React.FC<AvatarProps> = ({
     <div className={`relative ${className}`}>
       <div className={`${sizeClasses[size]} rounded-full overflow-hidden bg-gray-700 flex items-center justify-center`}>
         {src ? (
-          <img src={src} alt={alt} className="w-full h-full object-cover" />
+          <Image 
+            src={src} 
+            alt={alt} 
+            width={size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : 64}
+            height={size === 'sm' ? 32 : size === 'md' ? 40 : size === 'lg' ? 48 : 64}
+            className="w-full h-full object-cover" 
+          />
         ) : (
           <span className="text-gray-400 font-medium">
             {alt.charAt(0).toUpperCase()}

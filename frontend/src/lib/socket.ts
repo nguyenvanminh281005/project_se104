@@ -1,5 +1,4 @@
 import { io, Socket } from 'socket.io-client';
-import { SocketEvents } from '@/types';
 import { mockIo, MockSocket } from './mockSocket';
 
 const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:8000';
@@ -44,7 +43,7 @@ class SocketManager {
     }
   }
 
-  emit(event: string, data?: any): void {
+  emit(event: string, data?: unknown): void {
     if (this.socket?.connected) {
       this.socket.emit(event, data);
     } else {
@@ -52,13 +51,13 @@ class SocketManager {
     }
   }
 
-  on(event: string, callback: (...args: any[]) => void): void {
+  on(event: string, callback: (...args: unknown[]) => void): void {
     if (this.socket) {
       this.socket.on(event, callback);
     }
   }
 
-  off(event: string, callback?: (...args: any[]) => void): void {
+  off(event: string, callback?: (...args: unknown[]) => void): void {
     if (this.socket) {
       this.socket.off(event, callback);
     }

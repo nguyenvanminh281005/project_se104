@@ -121,7 +121,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   },
 
   updateCurrentTime: (time: number) => {
-    const { duration, repeat, currentSong } = get();
+    const { duration, repeat } = get();
     
     // Check if song ended
     if (time >= duration && duration > 0) {

@@ -72,9 +72,15 @@ class WebRTCManager {
   }
 
   private setupSocketListeners(): void {
-    socketManager.on('call:offer', this.handleOffer.bind(this));
-    socketManager.on('call:answer', this.handleAnswer.bind(this));
-    socketManager.on('call:ice-candidate', this.handleIceCandidate.bind(this));
+    socketManager.on('call:offer', (offer: unknown) => {
+      this.handleOffer(offer as RTCSessionDescriptionInit);
+    });
+    socketManager.on('call:answer', (answer: unknown) => {
+      this.handleAnswer(answer as RTCSessionDescriptionInit);
+    });
+    socketManager.on('call:ice-candidate', (candidate: unknown) => {
+      this.handleIceCandidate(candidate as RTCIceCandidate);
+    });
   }
 
   async getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream> {

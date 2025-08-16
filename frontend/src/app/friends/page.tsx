@@ -12,7 +12,6 @@ export default function FriendsPage() {
   const { token } = useAuthStore();
   const { startCall } = useCallStore();
   const [friends, setFriends] = useState<User[]>([]);
-  const [onlineUsers, setOnlineUsers] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +54,7 @@ export default function FriendsPage() {
       <Container className="py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Friends</h1>
-          <p className="text-gray-400">Connect with your friends and see who's online</p>
+          <p className="text-gray-400">Connect with your friends and see who&apos;s online</p>
         </div>
 
         <div className="grid gap-4">
@@ -66,12 +65,12 @@ export default function FriendsPage() {
                   src={friend.avatar}
                   alt={friend.username}
                   size="lg"
-                  online={onlineUsers.has(friend.id)}
+                  online={friend.isOnline}
                 />
                 <div>
                   <h3 className="text-lg font-semibold text-white">{friend.username}</h3>
                   <p className="text-gray-400">
-                    {onlineUsers.has(friend.id) ? 'Online' : 'Offline'}
+                    {friend.isOnline ? 'Online' : 'Offline'}
                   </p>
                 </div>
               </div>

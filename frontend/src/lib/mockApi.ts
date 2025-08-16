@@ -114,7 +114,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Mock API client
 class MockApiClient {
-  async request<T>(endpoint: string, config: any = {}): Promise<ApiResponse<T>> {
+  async request<T>(endpoint: string, config: Record<string, unknown> = {}): Promise<ApiResponse<T>> {
     await delay(500); // Simulate network delay
     
     console.log('Mock API Call:', endpoint, config);
@@ -126,7 +126,7 @@ class MockApiClient {
     };
   }
 
-  async get<T>(endpoint: string, token?: string): Promise<ApiResponse<T>> {
+  async get<T>(endpoint: string): Promise<ApiResponse<T>> {
     await delay(300);
     console.log('Mock GET:', endpoint);
     
@@ -136,7 +136,7 @@ class MockApiClient {
     };
   }
 
-  async post<T>(endpoint: string, data?: any, token?: string): Promise<ApiResponse<T>> {
+  async post<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
     await delay(500);
     console.log('Mock POST:', endpoint, data);
     
@@ -146,7 +146,7 @@ class MockApiClient {
     };
   }
 
-  async put<T>(endpoint: string, data?: any, token?: string): Promise<ApiResponse<T>> {
+  async put<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
     await delay(400);
     console.log('Mock PUT:', endpoint, data);
     
@@ -156,7 +156,7 @@ class MockApiClient {
     };
   }
 
-  async delete<T>(endpoint: string, token?: string): Promise<ApiResponse<T>> {
+  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
     await delay(300);
     console.log('Mock DELETE:', endpoint);
     
@@ -166,7 +166,7 @@ class MockApiClient {
     };
   }
 
-  async upload<T>(endpoint: string, file: File, token?: string): Promise<ApiResponse<T>> {
+  async upload<T>(endpoint: string, file: File): Promise<ApiResponse<T>> {
     await delay(1000);
     console.log('Mock UPLOAD:', endpoint, file.name);
     
@@ -220,12 +220,12 @@ export const mockAuthAPI = {
     };
   },
 
-  logout: async (token: string) => {
+  logout: async () => {
     await delay(200);
     return { success: true };
   },
 
-  refreshToken: async (token: string) => {
+  refreshToken: async () => {
     await delay(300);
     return {
       success: true,
@@ -233,7 +233,7 @@ export const mockAuthAPI = {
     };
   },
 
-  getProfile: async (token: string) => {
+  getProfile: async () => {
     await delay(400);
     return {
       success: true,
@@ -244,7 +244,7 @@ export const mockAuthAPI = {
 
 // Mock Music API
 export const mockMusicAPI = {
-  getPlaylists: async (token: string) => {
+  getPlaylists: async () => {
     await delay(600);
     return {
       success: true,
@@ -252,7 +252,7 @@ export const mockMusicAPI = {
     };
   },
 
-  getPlaylist: async (id: string, token: string) => {
+  getPlaylist: async (id: string) => {
     await delay(400);
     const playlist = mockPlaylists.find(p => p.id === id);
     return {
@@ -261,7 +261,7 @@ export const mockMusicAPI = {
     };
   },
 
-  getSongs: async (token: string) => {
+  getSongs: async () => {
     await delay(500);
     return {
       success: true,
@@ -269,7 +269,7 @@ export const mockMusicAPI = {
     };
   },
 
-  getSong: async (id: string, token: string) => {
+  getSong: async (id: string) => {
     await delay(300);
     const song = mockSongs.find(s => s.id === id);
     return {
@@ -278,7 +278,7 @@ export const mockMusicAPI = {
     };
   },
 
-  searchSongs: async (query: string, token: string) => {
+  searchSongs: async (query: string) => {
     await delay(400);
     const results = mockSongs.filter(song => 
       song.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -290,7 +290,7 @@ export const mockMusicAPI = {
     };
   },
 
-  getRecommendations: async (token: string) => {
+  getRecommendations: async () => {
     await delay(700);
     return {
       success: true,
@@ -301,7 +301,7 @@ export const mockMusicAPI = {
 
 // Mock Chat API
 export const mockChatAPI = {
-  getConversations: async (token: string) => {
+  getConversations: async () => {
     await delay(500);
     return {
       success: true,
@@ -309,7 +309,7 @@ export const mockChatAPI = {
     };
   },
 
-  getMessages: async (conversationId: string, token: string) => {
+  getMessages: async () => {
     await delay(400);
     return {
       success: true,
@@ -317,7 +317,7 @@ export const mockChatAPI = {
     };
   },
 
-  sendMessage: async (data: { receiverId: string; content: string }, token: string) => {
+  sendMessage: async (data: { receiverId: string; content: string }) => {
     await delay(300);
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -334,12 +334,12 @@ export const mockChatAPI = {
     };
   },
 
-  markAsRead: async (messageId: string, token: string) => {
+  markAsRead: async () => {
     await delay(200);
     return { success: true };
   },
 
-  moderateMessage: async (content: string, token: string) => {
+  moderateMessage: async (content: string) => {
     await delay(300);
     // Simple moderation - block messages with bad words
     const badWords = ['spam', 'bad', 'inappropriate'];
@@ -354,7 +354,7 @@ export const mockChatAPI = {
 
 // Mock User API
 export const mockUserAPI = {
-  getUsers: async (token: string) => {
+  getUsers: async () => {
     await delay(500);
     return {
       success: true,
@@ -362,7 +362,7 @@ export const mockUserAPI = {
     };
   },
 
-  getUser: async (id: string, token: string) => {
+  getUser: async (id: string) => {
     await delay(300);
     const user = mockUsers.find(u => u.id === id);
     return {
@@ -371,7 +371,7 @@ export const mockUserAPI = {
     };
   },
 
-  updateProfile: async (data: Partial<{ username: string; avatar: string }>, token: string) => {
+  updateProfile: async (data: Partial<{ username: string; avatar: string }>) => {
     await delay(600);
     return {
       success: true,
@@ -379,7 +379,7 @@ export const mockUserAPI = {
     };
   },
 
-  uploadAvatar: async (file: File, token: string) => {
+  uploadAvatar: async (file: File) => {
     await delay(1200);
     return {
       success: true,

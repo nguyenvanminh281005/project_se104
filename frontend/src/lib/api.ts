@@ -71,7 +71,7 @@ class ApiClient {
   // POST request
   async post<T>(
     endpoint: string, 
-    data?: any, 
+    data?: unknown, 
     token?: string
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
@@ -84,7 +84,7 @@ class ApiClient {
   // PUT request
   async put<T>(
     endpoint: string, 
-    data?: any, 
+    data?: unknown, 
     token?: string
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {

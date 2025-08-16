@@ -5,6 +5,7 @@ import { useChatStore } from '@/lib/store/chat';
 import { chatAPI } from '@/lib/api';
 import { useAuthStore } from '@/lib/store/auth';
 import { Avatar } from '@/components/ui';
+import { Conversation } from '@/types';
 
 interface UserListProps {
   onSelect: (conversationId: string) => void;
@@ -22,7 +23,7 @@ export const UserList: React.FC<UserListProps> = ({ onSelect, selectedId }) => {
       try {
         const response = await chatAPI.getConversations(token);
         if (response.success && response.data) {
-          setConversations(response.data as any[]);
+          setConversations(response.data as Conversation[]);
         }
       } catch (error) {
         console.error('Failed to load conversations:', error);

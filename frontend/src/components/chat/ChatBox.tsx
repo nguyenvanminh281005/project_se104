@@ -6,6 +6,7 @@ import { useAuthStore } from '@/lib/store/auth';
 import { chatAPI } from '@/lib/api';
 import { Avatar } from '@/components/ui';
 import { socketManager } from '@/lib/socket';
+import { Message } from '@/types';
 
 interface ChatBoxProps {
   conversationId: string;
@@ -13,7 +14,7 @@ interface ChatBoxProps {
 
 export const ChatBox: React.FC<ChatBoxProps> = ({ conversationId }) => {
   const { user, token } = useAuthStore();
-  const { messages, setMessages, addMessage } = useChatStore();
+  const { messages, setMessages } = useChatStore();
   const messageList = messages[conversationId] || [];
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +28,7 @@ export const ChatBox: React.FC<ChatBoxProps> = ({ conversationId }) => {
       try {
         const response = await chatAPI.getMessages(conversationId, token);
         if (response.success && response.data) {
-          setMessages(conversationId, response.data as any[]);
+          setMessages(conversationId, response.data as Message[]);
         }
       } catch (error) {
         console.error('Failed to load messages:', error);

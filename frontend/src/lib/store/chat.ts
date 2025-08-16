@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Message, Conversation, User } from '@/types';
+import { Message, Conversation } from '@/types';
 
 interface ChatStore {
   conversations: Conversation[];

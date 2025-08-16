@@ -90,6 +90,18 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
+// Login/Register response types
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
+
+// Generic API error response
+export interface ErrorResponse {
+  error: string;
+  message?: string;
+}
+
 // Socket events
 export interface SocketEvents {
   // User events

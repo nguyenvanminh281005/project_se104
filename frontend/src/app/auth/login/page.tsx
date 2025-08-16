@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/store/auth';
 import { authAPI } from '@/lib/api';
 import { Container, Input, Button, LoadingSpinner } from '@/components/ui';
+import { AuthResponse } from '@/types';
 import toast from 'react-hot-toast';
 
 export default function LoginPage() {
@@ -58,7 +59,7 @@ export default function LoginPage() {
       });
       
       if (response.success && response.data) {
-        const { user, token } = response.data as { user: any; token: string };
+        const { user, token } = response.data as AuthResponse;
         login(user, token);
         toast.success('Login successful!');
         router.push('/');
@@ -123,7 +124,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-gray-400">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link
                 href="/auth/register"
                 className="text-blue-400 hover:text-blue-300 font-medium"
